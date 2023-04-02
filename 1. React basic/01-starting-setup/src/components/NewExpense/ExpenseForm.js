@@ -18,10 +18,22 @@ const ExpenseForm = () => {
     const changeDateHandler = (event) => {
         setEnteredDate(event.target.value);
     }
+
+    const submitHandler = (event) => {
+        event.preventDefault();
+
+        let expenseData = {
+            title : enteredTitle,
+            amount : enteredAmount,
+            date : new Date(enteredDate)
+        }
+
+        console.log(expenseData);
+    }
   
 
     return (
-        <form>
+        <form onSubmit={submitHandler}>
         <div className="new-expense__controls">
             <div className="new-expense__control">
                 <label>Title</label>
@@ -36,7 +48,7 @@ const ExpenseForm = () => {
                 <input type='date' onChange={changeDateHandler} min='2020-01-01' step='2023-12-31' />
             </div>
             <div className='new-expense__actions'>
-                <button>Add Expense</button>
+                <button type='submit'>Add Expense</button>
             </div>
         </div>
         </form>
