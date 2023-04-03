@@ -16,7 +16,7 @@ function Expenses(props)
         <Card className="expenses">
             <ExpenseFilter onChangeDropdownHandler={changeDropdownHandler} selectedYear={selectedYear}/>
             
-            {props.expenses.map(expense => <ExpenseItem title={expense.title} date={expense.date} amount={expense.amount}/>)}
+            {props.expenses.map( (expense) => <ExpenseItem key={expense.id} title={expense.title} date={expense.date} amount={expense.amount}></ExpenseItem>)}
             
         </Card>
         </div>
