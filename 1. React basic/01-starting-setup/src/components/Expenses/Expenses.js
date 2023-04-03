@@ -11,12 +11,22 @@ function Expenses(props)
         setSelectedYear(selectedYear);
     }
 
+    const filteredExpenses = props.expenses.filter( expense => {
+        return expense.date.getFullYear().toString() === selectedYear;
+    });
+
+    let expensesElement = <p>No expenses found</p>
+    
+    if(filteredExpenses.length > 0){
+        expensesElement = filteredExpenses.map( (expense) => <ExpenseItem key={expense.id} title={expense.title} date={expense.date} amount={expense.amount}></ExpenseItem>)
+    }
+
     return (
         <div>
         <Card className="expenses">
             <ExpenseFilter onChangeDropdownHandler={changeDropdownHandler} selectedYear={selectedYear}/>
             
-            {props.expenses.map( (expense) => <ExpenseItem key={expense.id} title={expense.title} date={expense.date} amount={expense.amount}></ExpenseItem>)}
+            {expensesElement}
             
         </Card>
         </div>

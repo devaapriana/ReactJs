@@ -18,13 +18,13 @@ const DUMMY_EXPENSES = [
   {
     'id' : 'e3',
     'title' : 'Apple',
-    'date' : new Date(2023, 9, 14),
+    'date' : new Date(2020, 9, 14),
     'amount' : 700
   },
   {
     'id' : 'e4',
     'title' : 'Car',
-    'date' : new Date(2023, 10, 14),
+    'date' : new Date(2021, 10, 14),
     'amount' : 60
   }
 ];
