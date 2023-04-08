@@ -34,6 +34,10 @@ const ExpenseForm = (props) => {
         setEnteredAmount('');
         setEnteredDate('');
     }
+
+    const closeEditing = () => {
+        props.onStopEditing();
+    }
   
 
     return (
@@ -52,6 +56,7 @@ const ExpenseForm = (props) => {
                 <input type='date' onChange={changeDateHandler} value={enteredDate} min='2020-01-01' step='2023-12-31' />
             </div>
             <div className='new-expense__actions'>
+                <button type='button' onClick={closeEditing}>Cancel</button>
                 <button type='submit'>Add Expense</button>
             </div>
         </div>

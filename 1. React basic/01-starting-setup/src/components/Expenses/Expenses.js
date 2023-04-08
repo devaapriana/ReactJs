@@ -1,8 +1,9 @@
 import {useState} from 'react';
-import ExpenseItem from "./ExpenseItem";
+import ExpenseList from './ExpenseList';
 import './Expenses.css';
 import Card from "../UI/Card";
 import ExpenseFilter from "./ExpenseFilter";
+import ExpenseChart from './ExpenseChart';
 function Expenses(props)
 {
     const [selectedYear, setSelectedYear] = useState('2020');
@@ -15,21 +16,17 @@ function Expenses(props)
         return expense.date.getFullYear().toString() === selectedYear;
     });
 
-    let expensesElement = <p>No expenses found</p>
     
-    if(filteredExpenses.length > 0){
-        expensesElement = filteredExpenses.map( (expense) => <ExpenseItem key={expense.id} title={expense.title} date={expense.date} amount={expense.amount}></ExpenseItem>)
-    }
 
     return (
-        <div>
+        <li>
         <Card className="expenses">
             <ExpenseFilter onChangeDropdownHandler={changeDropdownHandler} selectedYear={selectedYear}/>
-            
-            {expensesElement}
+            <ExpenseChart expenses={filteredExpenses}/>
+            <ExpenseList expenses={filteredExpenses} />
             
         </Card>
-        </div>
+        </li>
     );
 }
 
