@@ -6,7 +6,8 @@ import './CourseInput.css';
 
 const FormControl = styled.div`
   
-    margin: 0.5rem 0;
+ 
+  margin: 0.5rem 0;
   
   
   & label {
@@ -15,7 +16,8 @@ const FormControl = styled.div`
     margin-bottom: 0.5rem;
     color: ${props => props.invalid ? 'red' : 'black'}
   }
-  
+ 
+
   & input {
     display: block;
     width: 100%;
