@@ -8,14 +8,49 @@ const defaultCartItems = {
 
 const cartReducer = (state, action) => {
     if(action.type === 'ADD'){
-        const updatedItems = state.items.concat(action.item);
-        const newTotalAmount = state.totalAmount + action.amount * action.price;
 
+        let existingItemIndex = state.items.findIndex(item => item.id === action.item.id);
+        let existingItem = state.items[existingItemIndex];
+        
+        let updatedItems;
+
+        if(existingItem){
+            let updatedItem = {
+                ...existingItem, amount: existingItem.amount + action.item.amount};
+            updatedItems = [...state.items];
+            updatedItems[existingItemIndex] = updatedItem;
+        }else{
+            updatedItems = state.items.concat(action.item);
+        }
+
+        const newTotalAmount = state.totalAmount + action.item.amount * action.item.price;
+        
         return {
             items: updatedItems,
             totalAmount: newTotalAmount
         };
     }
+
+    if(action.type == 'REMOVE'){
+        let updatedTotalAmount = state.totalAmount;
+        let existingItemIndex = state.items.findIndex(item => item.id === action.id);
+        let existingItem = state.items[existingItemIndex];
+        let updatedItems;
+        updatedTotalAmount = updatedTotalAmount - existingItem.price;
+
+        if(existingItem.amount === 1){
+            updatedItems = state.items.filter(item => item.id != action.id);
+        }else{
+            updatedItems = [...state.items];
+            updatedItems[existingItemIndex].amount -= 1; 
+        }
+
+        return {
+            items: updatedItems,
+            totalAmount: updatedTotalAmount
+        }
+    }
+
     return defaultCartItems;
 }
 
@@ -32,8 +67,8 @@ const CartProvider = props => {
     };
 
     const cartContext = {
-        items: [],
-        totalAmount: 0,
+        items: cartState.items,
+        totalAmount: cartState.totalAmount,
         addItem: addItemToCartHandler,
         removeItem: removeItemFromCartHandler
     }
