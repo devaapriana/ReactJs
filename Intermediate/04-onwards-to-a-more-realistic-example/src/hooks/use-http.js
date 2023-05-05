@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 
-const useHttp = (requestConfig, applyData) => {
+const useHttp = () => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
   
-    const sendRequest = async (taskText) => {
+    const sendRequest = useCallback(async (requestConfig, applyData) => {
       setIsLoading(true);
       setError(null);
       try {
@@ -38,7 +38,7 @@ const useHttp = (requestConfig, applyData) => {
         }
 
         setIsLoading(false);
-    };
+    }, []);
 
     return {
         isLoading,

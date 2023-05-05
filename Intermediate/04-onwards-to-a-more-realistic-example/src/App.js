@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 
 import Tasks from './components/Tasks/Tasks';
 import NewTask from './components/NewTask/NewTask';
@@ -9,7 +9,7 @@ function App() {
   
   const [tasks, setTasks] = useState([]);
 
-  const transformTasks = (data) => {
+  const transformTasks = useCallback((data) => {
     const loadedTasks = [];
 
       for (const taskKey in data) {
@@ -17,15 +17,16 @@ function App() {
       }
 
       setTasks(loadedTasks);
-  }
+      
+  }, []);
 
-  const {isLoading, error, sendRequest: fetchTasks} = useHttp({url: 'https://react-app-610ea-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json'}, transformTasks)
+  const {isLoading, error, sendRequest: fetchTasks} = useHttp()
 
 
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    fetchTasks({url: 'https://react-app-610ea-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json'}, transformTasks);
+  }, [fetchTasks]);
 
   const taskAddHandler = (task) => {
     setTasks((prevTasks) => prevTasks.concat(task));
