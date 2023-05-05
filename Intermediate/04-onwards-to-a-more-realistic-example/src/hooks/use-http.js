@@ -1,3 +1,5 @@
+import { useState } from "react";
+
 const useHttp = (requestConfig, applyData) => {
     const [isLoading, setIsLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -9,11 +11,9 @@ const useHttp = (requestConfig, applyData) => {
         const response = await fetch(
           requestConfig.url,
           {
-            method: requestConfig.method,
-            body: JSON.stringify(requestConfig.body),
-            headers: {
-              'Content-Type': 'application/json',
-            },
+            method: requestConfig.method ? requestConfig.method : 'GET',
+            body: requestConfig.body ? JSON.stringify(requestConfig.body) : null,
+            headers: requestConfig.headers ? requestConfig.headers : {},
           }
         );
   
