@@ -3,11 +3,14 @@ import { useState } from "react";
 const SimpleInput = (props) => {
 
   const [enteredName, setEnteredName] = useState('');
-  const [enteredNameIsValid, setEnteredNameIsValid] = useState(false);
   const [enteredNameIsTouched, setEnteredNameIsTouched] = useState(false);
 
+  const enteredNameIsValid = enteredName.trim() !== '';
+  const inputNameIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
+   
   const changeEnteredNameHandler = event => {
     setEnteredName(event.target.value);
+    console.log('oke');
   } 
 
   const inputNameBlurHandler = event => {
@@ -16,7 +19,6 @@ const SimpleInput = (props) => {
     setEnteredNameIsTouched(true);
 
     if(enteredName.trim() === ''){
-      setEnteredNameIsValid(false);
       return;
     }
   }
@@ -26,19 +28,17 @@ const SimpleInput = (props) => {
 
     setEnteredNameIsTouched(true);
 
-    if(enteredName.trim() === ''){
-      setEnteredNameIsValid(false);
+    if(!enteredNameIsValid){
       return;
     }
-
-    setEnteredNameIsValid(true);
 
     console.log(enteredName);
 
     setEnteredName('');
+    setEnteredNameIsTouched(false);
   }
 
-  const inputNameIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
+  
   const formClasses = inputNameIsInvalid ? 'form-control invalid' : 'form-control';
 
   return (
