@@ -7,10 +7,15 @@ const SimpleInput = (props) => {
 
   const enteredNameIsValid = enteredName.trim() !== '';
   const inputNameIsInvalid = !enteredNameIsValid && enteredNameIsTouched;
-   
+  
+  let formIsValid = false;
+
+  if(enteredNameIsValid){
+    formIsValid = true;
+  }
+
   const changeEnteredNameHandler = event => {
     setEnteredName(event.target.value);
-    console.log('oke');
   } 
 
   const inputNameBlurHandler = event => {
@@ -49,7 +54,7 @@ const SimpleInput = (props) => {
       {inputNameIsInvalid && <p className="error-text">Name is empty</p>}
       </div>
       <div className="form-actions">
-        <button>Submit</button>
+        <button disabled={!formIsValid}>Submit</button>
       </div>
     </form>
   );
