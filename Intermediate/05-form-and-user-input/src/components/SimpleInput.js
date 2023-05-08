@@ -11,10 +11,19 @@ const SimpleInput = (props) => {
     inputBlurHandler: nameBlurHandler,
     reset: resetNameInput
   } = useInput(value => value.trim() !== '');
+
+  const {
+    value: enteredEmail,
+    isValid: enteredEmailIsValid,
+    hasError: emailInputHasError,
+    valueChangeHandler: emailChangeHandler,
+    inputBlurHandler: emailBlurHandler,
+    reset: resetEmailInput
+  } = useInput(value => value.includes('@'));
   
   let formIsValid = false;
 
-  if(enteredNameIsValid){
+  if(enteredNameIsValid && enteredEmailIsValid ){
     formIsValid = true;
   }
 
@@ -24,18 +33,18 @@ const SimpleInput = (props) => {
     event.preventDefault();
 
 
-    if(!enteredNameIsValid){
+    if(!enteredNameIsValid && !enteredEmailIsValid){
       return;
     }
 
-    console.log(enteredName);
 
     resetNameInput();
+    resetEmailInput();
   }
 
   
   const nameInputIsValid = nameInputHasError ? 'form-control invalid' : 'form-control';
-  // const emailInputIsValid = emailInput ? 'form-control invalid' : 'form-control';
+  const emailInputIsValid = emailInputHasError ? 'form-control invalid' : 'form-control';
 
   return (
     <form onSubmit={formSubmissionHandler}>
@@ -44,11 +53,11 @@ const SimpleInput = (props) => {
         <input type='text' id='name' onChange={nameChangeHandler} onBlur={nameBlurHandler} value={enteredName}/>
       {nameInputHasError && <p className="error-text">Name is empty</p>}
       </div>
-      {/* <div className={nameInputIsValid}>
+      <div className={emailInputIsValid}>
         <label htmlFor='email'>Your Email</label>
-        <input type='email' id='email' onChange={changeEnteredNameHandler} onBlur={inputNameBlurHandler} value={enteredName}/>
-      {nameInputHasError && <p className="error-text">Name is empty</p>}
-      </div> */}
+        <input type='email' id='email' onChange={emailChangeHandler} onBlur={emailBlurHandler} value={enteredEmail}/>
+      {emailInputHasError && <p className="error-text">Value must be contain @</p>}
+      </div>
       <div className="form-actions">
         <button disabled={!formIsValid}>Submit</button>
       </div>
