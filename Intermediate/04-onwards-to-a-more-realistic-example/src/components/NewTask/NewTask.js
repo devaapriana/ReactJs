@@ -19,7 +19,7 @@ const NewTask = (props) => {
 
     sendTaksRequest({url: 'https://react-app-610ea-default-rtdb.asia-southeast1.firebasedatabase.app/tasks.json', method: 'POST', headers: {
       'Content-Type': 'application/json',
-    }, body: JSON.stringify({ text: taskText })}, addTask.bind(null, taskText));
+    }, body: { text: taskText }}, addTask.bind(null, taskText));
 
   };
    
