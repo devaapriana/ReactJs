@@ -3,7 +3,7 @@ import EventForm from '../components/EventForm';
 const EditEventPage = () => {
     const data = useRouteLoaderData('event-detail')
     return <>
-        <EventForm event={data.event}/>
+        <EventForm event={data.event} method="PATCH"/>
     </>
 }
 
