@@ -33,6 +33,8 @@ export async function action({request, params}){
         method:request.method
     });
 
+
+
     if (!response.ok) {
 
         throw json(
@@ -42,6 +44,7 @@ export async function action({request, params}){
           }
         )
       }
+
 
     return redirect('/events')
 
