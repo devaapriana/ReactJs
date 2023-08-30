@@ -8,12 +8,11 @@ function AuthenticationPage() {
 export default AuthenticationPage;
 
 export async function action({request}){
-  console.log('oi');
+  
   const data = await request.formData();
   
   let url = new URL(request.url).searchParams;
   let mode = url.get('mode') || 'login';
-  console.log(mode);
 
   if(mode != 'login' && mode != 'signup'){
     throw json({message: 'Could not find mode'}, {status: 400});
@@ -24,7 +23,6 @@ export async function action({request}){
     password: data.get('password')
   }
   
-  console.log(authData);
   const response = await fetch(`http://localhost:8080/${mode}`, {
     method: 'POST',
     headers: {
