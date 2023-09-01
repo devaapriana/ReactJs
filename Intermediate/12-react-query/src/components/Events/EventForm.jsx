@@ -14,7 +14,6 @@ export default function EventForm({ inputData, onSubmit, children }) {
     queryKey: ['events-images'],
     queryFn: fetchSelectableImages,
     onSuccess: () => {
-      console.log('tes');
       queryClient.invalidateQueries({queryKey: ['events']});
       navigate('events');
     }
